@@ -1,0 +1,51 @@
+import pandas as pd
+
+# specify the file paths for both CSV files
+schools_file_path = r'C:\Users\CDiFa\OneDrive\Uni - Data Analytics\Module 4\Starter_Code\PyCitySchools\Resources\schools_complete.csv'
+students_file_path = r'C:\Users\CDiFa\OneDrive\Uni - Data Analytics\Module 4\Starter_Code\PyCitySchools\Resources\students_complete.csv'
+
+# read the CSV files using pandas
+schools_df = pd.read_csv(schools_file_path)
+students_df = pd.read_csv(students_file_path)
+
+# calculate the total number of unique schools
+total_schools = len(schools_df['School ID'].unique())
+
+# calculate the total number of students
+total_students = len(students_df['Student ID'].unique())
+
+# calculate the total budget
+total_budget = schools_df['budget'].sum()
+
+# calculate the average maths score
+avg_math_score = students_df['math_score'].mean()
+
+# calculate the average reading score
+avg_reading_score = students_df['reading_score'].mean()
+
+# calculate the percentage of students passing maths
+passing_math_df = students_df[students_df['math_score'] >= 50]
+perc_passing_math = len(passing_math_df) / total_students * 100
+
+# calculate the percentage of students passing reading
+passing_reading_df = students_df[students_df['reading_score'] >= 50]
+perc_passing_reading = len(passing_reading_df) / total_students * 100
+
+# calculate the percentage of students passing both maths and reading
+passing_overall_df = students_df[(students_df['math_score'] >= 50) & (students_df['reading_score'] >= 50)]
+perc_passing_overall = len(passing_overall_df) / total_students * 100
+
+# create a DataFrame to display the LGA summary
+summary_df = pd.DataFrame({
+    'Total Schools': [total_schools],
+    'Total Students': [total_students],
+    'Total Budget': [total_budget],
+    'Average Math Score': [avg_math_score],
+    'Average Reading Score': [avg_reading_score],
+    '% Passing Math': [perc_passing_math],
+    '% Passing Reading': [perc_passing_reading],
+    '% Overall Passing': [perc_passing_overall]
+})
+
+# display the summary DataFrame
+print(summary_df)
